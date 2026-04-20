@@ -8,11 +8,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class Sinistri {
-  link = "https://humble-palm-tree-pjjxxg94v5qx39gv-7000.app.github.dev/"
-
-  obsSinistri!: Observable<sinistro[]>
-  obsSinistroId!: Observable<sinistro>
-  obsCreateSinistro!: Observable<any>
+  link = '/api/sinistri/';
 
   private sinistriSubject = new BehaviorSubject<sinistro[]>([]);
   obsSinistri = this.sinistriSubject.asObservable();
@@ -38,8 +34,8 @@ export class Sinistri {
   }
 
   uploadImmagini(sinistroId: string, files: File[]): Observable<any> {
-  const formData = new FormData();
-  files.forEach(file => formData.append('immagini', file, file.name));
-  return this.http.post(`${this.link}sinistro/${sinistroId}/immagini`, formData);
-}
+    const formData = new FormData();
+    files.forEach(file => formData.append('immagini', file, file.name));
+    return this.http.post(`${this.link}sinistro/${sinistroId}/immagini`, formData);
+  }
 }
