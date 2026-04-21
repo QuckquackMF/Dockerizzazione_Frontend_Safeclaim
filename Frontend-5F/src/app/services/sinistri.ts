@@ -34,8 +34,20 @@ export class SinistriService {
   }
 
   uploadImmagini(sinistroId: string, files: File[]): Observable<any> {
-    const formData = new FormData();
-    files.forEach(file => formData.append('immagini', file, file.name));
-    return this.http.post(`${this.link}sinistro/${sinistroId}/immagini`, formData);
+    const file = files[0];
+    return new Observable(observer => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = (reader.result as string).split(',')[1]; // rimuove "data:image/...;base64,"
+        this.http.post(`${this.link}sinistro/${sinistroId}/immagini`, {
+          immagine_base64: base64
+        }).subscribe({
+          next: (res) => { observer.next(res); observer.complete(); },
+          error: (err) => observer.error(err)
+        });
+      };
+      reader.onerror = (err) => observer.error(err);
+      reader.readAsDataURL(file);
+    });
   }
 }
