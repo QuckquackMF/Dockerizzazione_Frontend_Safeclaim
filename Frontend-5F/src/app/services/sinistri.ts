@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class Sinistri {
+export class SinistriService {
   link = '/api/sinistri/';
 
   private sinistriSubject = new BehaviorSubject<sinistro[]>([]);
