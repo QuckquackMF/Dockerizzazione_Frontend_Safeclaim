@@ -10,7 +10,7 @@ import { Relazione, Claim } from '../perito/perito';
 })
 export class Perizie {
 
-private praticheLink = '/api/polizze/';
+private praticheLink = '/api/periti/';
 private sinistriLink = '/api/sinistri/';
 
   constructor(public http: HttpClient) {}
